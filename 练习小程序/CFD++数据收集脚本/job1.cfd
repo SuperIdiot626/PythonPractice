@@ -1,0 +1,28 @@
+#! /bin/bash
+##the value of -q option can be long or verylong or priv
+#PBS -N A_name
+#PBS -l nodes=node1:ppn=48
+#PBS -q batch
+#PBS -j oe
+#
+ulimit -s unlimited
+#
+cd $PBS_O_WORKDIR
+#
+NPROCS=`cat $PBS_NODEFILE|wc -l`
+
+export MPI_ROOT=/public/METACOMP/hpmpi
+export PATH=$MPI_ROOT/bin:$PATH
+. /public/METACOMP/mcfdenv.sh
+
+
+#
+cat $PBS_NODEFILE >>ma
+rm mpi_init.log -rf
+/public/METACOMP/mlib/mcfd.14.1/exec/tometis pmetis ${NPROCS} >>mpi_init.log
+#
+echo "start at  `date +'%F %k:%M:%S'`"
+#
+mpirun -ibv -hostfile $PBS_NODEFILE -np ${NPROCS} hpmpimcfd>output 2>&1
+#
+echo "finish at  `date +'%F %k:%M:%S'`"

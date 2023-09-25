@@ -1,0 +1,14 @@
+两种方式防止中文乱码
+import matplotlib                               #用于防止中文出现乱码
+font = {
+    'family':'SimHei',
+    'weight':'bold',
+    'size':12
+}
+matplotlib.rc("font", **font)
+
+
+plt.rcParams['font.sans-serif'] = ['KaiTi']     # 指定默认字体
+plt.rcParams['axes.unicode_minus'] = False      # 解决保存图像是负号'-'显示为方块的问题
+
+已知seaborn样式无法显示中文

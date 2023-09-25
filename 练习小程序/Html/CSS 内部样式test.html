@@ -1,0 +1,59 @@
+<!DOCTYPE html>                     <!--声明为html文档，html文档注释为-->
+<html lang='en'>                    <!--html根元素-->
+<head>
+    <meta charset='UTF-8'>
+    <title>明日学院简介</title>     <!--设置文档标题，文本框上显示的内容-->
+    <style>                         /*这里使用了CSS的内部样式表，注释也变成了C的注释*/
+        h1{
+            text-align: center;     /*文本的位置，center居中，*/
+            color:blue;             /*颜色*/
+        }
+        p{
+            padding: 20px;
+            background: yellow;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>明日学院</h1>               <!--设置大标题-->
+    <p>
+        最早是从高中时候出现的。记得一次物理课上，我突然想到这个，于是害怕得浑身发抖，心跳加速，冒冷汗。<br>  <!--尖括号br是换行-->
+        我真的好害怕，我害怕死。<br>
+        我平时不会想这些。但有时不知怎地，就突然想到。<br>
+        后来，高中到大学。这种情况偶尔发生过几次。<br>
+        但是最近两年，出现的越来越频繁。我不仅仅是发抖了，我还会精神失控，会惊恐地大喊大叫，胡言乱语。<br>
+        发作的时候。我在别人看来像个疯子。<br>                    <!--设置段落-->
+    </p>
+    <from name="from_name"  method="method"  action="url" enctype="value"
+            target="target_win">                                    <!--name：表单名称；method：表单提交方式；-->
+        <input type="submit"name="Submit"   value="提交">         <!--添加了一个提交按钮，按钮上显示提交-->
+        <input type="text"  name="user"     value="纯净水"  size="12"   maxlength="10">    <!--添加文本框，value为默认值，name为文本框名称，size为宽度，最后为最大输入字符数-->
+        <input type='hidden'name='bookid'>  <!--对用户隐藏的信息-->
+        
+        <select name="name" size="value" mutiple>       <!--name:域的名称；size为行数；value为菜单选项值-->
+            <option value="0" selected>genji</option>     <!--默认选择-->
+            <option value="1" >moira</option>
+            <option value="2" >mercy</option>
+            <option value="3" >rapper</option>
+        </select> 
+
+        <select name="name2" size="value2" >       <!--name:域的名称；size为行数；value为菜单选项值-->
+            <option value="0" selected>option0</option>     <!--默认选择-->
+            <option value="1" >option1</option>
+            <option value="2" >option2</option>
+            <option value="3" >option3</option>
+        </select> 
+
+        <textarea name="name" rows=10 cols=40 value="asd" warp='hard'>
+    首先说清楚，我直到8.12才发现大事不妙是因为隔几天团支部的群里都会发一个返校管控表，
+    里面对于武汉的管控措施精确到了区、街道和小区。很自然就会这么想，都不在一个区，
+        肯定没问题呀。审核不通过问了辅导员才知道学校是按另一套标准执行的，在那套标准里，
+    我属于“有中高风险区的设区市“，所以要暂缓返校，对，隔离资格都没有的那种。
+    开始郁闷……
+        </textarea>
+
+
+    </from>
+</body>
+</html>

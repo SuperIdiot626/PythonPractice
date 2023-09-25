@@ -1,0 +1,305 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+import tkinter as tk  
+import tkinter.messagebox
+import os
+#from typing_extensions import IntVar 
+
+
+targetfilename='minfo1_e1'                              #for different target file
+
+
+
+show_avera=0                                            #set whether calculate the average value
+avera_steps=500                                         #how many steps to cal the average
+
+show_gap=0                                              #set whether show a gap step
+gap_steps=1000                                          #set the value of gap
+
+pri_dir=0
+pri_steps=0                                             #steps, this should usually be 1
+pri_time=0                                              #time
+pri_Fx=0                                                #force at X direction
+pri_Fy=0                                                #force at Y direction
+pri_Fz=0                                                #force at Z direction
+pri_Mx=0                                                #momentum object to axis X
+pri_My=0                                                #momentum object to axis Y
+pri_Mz=0                                                #momentum object to axis Z
+pri_LiftCoe=0                                           #lift coefficient
+pri_DragCoe=0                                           #drag coefficient
+pri_LD_ratio=0                                          #Lift/Drag ratio
+window = tk.Tk()
+
+var_pri_avera   =tk.IntVar()
+var_pri_gap     =tk.IntVar()
+var_pri_time    =tk.IntVar()
+var_pri_dir     =tk.IntVar()
+var_pri_steps   =tk.IntVar()
+var_pri_time    =tk.IntVar()
+var_pri_Fx      =tk.IntVar()
+var_pri_Fy      =tk.IntVar()
+var_pri_Fz      =tk.IntVar()
+var_pri_Mx      =tk.IntVar()
+var_pri_My      =tk.IntVar()
+var_pri_Mz      =tk.IntVar()
+var_pri_LiftCoe =tk.IntVar()
+var_pri_DragCoe =tk.IntVar()
+var_pri_LD_ratio=tk.IntVar()
+
+num_collected=0                                         #count how many files were collected
+num_Nonstandard=0                                       #count how many non_standard files were detected
+rootDir=''                                              #the root directory
+
+def dataWrite(resultfile,data,output_mode):
+
+    if pri_steps==1:                                    #以下内容用于使输出更规范
+        if output_mode==1:
+            resultfile.write("          the  latest  step:%7d"%data[0])
+        if output_mode==2:
+            front_line=str(int(avera_steps)).ljust(7,' ')+" steps' average:   "
+            resultfile.write(front_line+str(int(data[0])))
+        if output_mode==3:
+            front_line=str(int(gap_steps)).ljust(7,' ')+"steps'  before :   "
+            resultfile.write(front_line+str(int(data[0])))
+    if pri_time==1:
+        resultfile.write(' %14.7e'%data[1])
+    if pri_Fx==1:
+        resultfile.write(' %14.7e'%data[2])
+    if pri_Fy==1:
+        resultfile.write(' %14.7e'%data[3])
+    if pri_Fz==1:
+        resultfile.write(' %14.7e'%data[4])
+    if pri_Mx==1:
+        resultfile.write(' %14.7e'%data[5])
+    if pri_My==1:
+        resultfile.write(' %14.7e'%data[6])
+    if pri_Mz==1:
+        resultfile.write(' %14.7e'%data[7])
+    if pri_LiftCoe==1:
+        resultfile.write(' %14.7e'%data[8])
+    if pri_DragCoe==1:
+        resultfile.write(' %14.7e'%data[9])
+    if pri_LD_ratio==1:
+        try:
+            resultfile.write('  L/D=%14.7e'%(data[8]/data[9]))
+        except ZeroDivisionError:
+            resultfile.write('divided by zero')
+    resultfile.write('\n') 
+
+def datacollect(dir):                                       #function to collect data
+    global num_collected
+    global num_Nonstandard
+    try:
+        file=open(targetfilename,'r')                       #test if target file exists
+    except:
+        return 0
+
+    wholeTxt=file.readlines()                               #read all the file
+    file.close                                              #close file after read
+
+    if wholeTxt[0].split(' ')[1]=="coefficients":           #check if file is output by "coefficients" 
+        
+        wholeTxt.reverse()
+        wholeTxt=wholeTxt[0:-12]
+
+        if show_gap:
+            try:
+                gap_data=wholeTxt[gap_steps]
+            except IndexError:
+                gap_data=wholeTxt[-1]
+            gap_data=(gap_data[:-1]).split(' ')             #split the line with space and delete all of them
+            while '' in gap_data:
+                gap_data.remove('')
+            for i,data in enumerate(gap_data):              #str to float
+                gap_data[i]=float(data)
+
+        if show_avera:
+            wholeTxt=wholeTxt[0:avera_steps]                #only need some last lines
+            average=[0,0,0,0,0,0,0,0,0,0]                   #initial value of average
+
+        for i,line in  enumerate(wholeTxt):
+            line=(line[:-1]).split(' ')                     #split the line with space and delete all of them
+            while '' in line:
+                line.remove('')
+            for j,data in enumerate(line):                  #add all the data
+                line[j]=float(data)
+                if show_avera:
+                    average[j]+=line[j]
+            wholeTxt[i]=line                                #set the data
+
+        if show_avera:
+            for i,data in enumerate(average):               #calculate average data
+                average[i]=data/len(wholeTxt)
+
+        os.chdir(rootDir)
+        statistical_result=open('data_statistic.txt','a')   #open the statistic file and recorC:\Users\WYZ\Desktop\CaoPuyud
+        #statistical_result.write('\n')
+        if pri_dir==1:
+            statistical_result.write(dir+'\n')
+        dataWrite(statistical_result,wholeTxt[0],1)
+        if show_avera==1:
+            dataWrite(statistical_result,average,2)
+        if show_gap==1:
+            dataWrite(statistical_result,gap_data,3)
+        statistical_result.close
+        num_collected+=1
+
+        print("%s collected"%dir)                           #show which dirs were collected
+        
+    else:
+        num_Nonstandard+=1
+        print('Non_standard file decteced in %s'%dir)
+
+def traversedir(ini_dir):                                   #traverse all dirs, secondary dirs included
+    os.chdir(ini_dir)                                       #first change into target dir
+    datacollect(ini_dir)                                    #check if there is target file in the initial dir
+    secondarydirlsit=os.listdir(ini_dir)                    #list the secondary dics of the initial dir
+    secondarydirlsit.sort()                                 #sort the dir list
+    for dir in secondarydirlsit:
+        wholedir=os.path.join(ini_dir,dir)
+        if os.path.isdir(wholedir):
+            traversedir(wholedir)                           #self recall to traverse secondary dirs      
+        else:
+            continue
+
+def print_selection():
+    global show_avera
+    global avera_steps
+    global show_gap
+    global gap_steps
+
+    global pri_dir
+    global pri_steps
+    global pri_time
+    global pri_Fx
+    global pri_Fy
+    global pri_Fz
+    global pri_Mx
+    global pri_My
+    global pri_Mz
+    global pri_LiftCoe
+    global pri_DragCoe
+    global pri_LD_ratio
+    avera_steps =(ave_entry.get())
+    gap_steps   =(gap_entry.get())
+    if avera_steps!='':
+        avera_steps =int(avera_steps)
+    else:
+        avera_steps=0
+    if  gap_steps!='':
+         gap_steps =int( gap_steps)
+    else:
+         gap_steps=0
+    show_avera  =var_pri_avera.get()
+    show_gap    =var_pri_gap.get()
+    pri_dir     =var_pri_dir.get()
+    pri_steps   =var_pri_steps.get()
+    pri_time    =var_pri_time.get()  
+    pri_Fx      =var_pri_Fx.get()
+    pri_Fy      =var_pri_Fy.get()
+    pri_Fz      =var_pri_Fz.get()
+    pri_Mx      =var_pri_Mx.get()
+    pri_My      =var_pri_My.get()
+    pri_Mz      =var_pri_Mz.get()
+    pri_LiftCoe =var_pri_LiftCoe.get()
+    pri_DragCoe =var_pri_DragCoe.get()
+    pri_LD_ratio=var_pri_LD_ratio.get()
+
+def collect():                                              #collect the data when press the button
+    global rootDir,num_collected
+    rootDir = dir_input.get()                               #read the dictory in the input box
+    try:
+        os.chdir(rootDir)
+    except OSError:
+        tkinter.messagebox.showerror(title='Error',          #if error, inject an tip window
+            message='Invalid path!')
+    else:
+        traversedir(rootDir)                                #if success, inject an "all done" window
+        x=str(num_collected) 
+        tkinter.messagebox.showinfo(title='Message',
+            message=x+' file(s) collected,please check root dir.')
+        num_collected=0
+
+def clear():                                                #collect the data when press the button
+    global rootDir
+    rootDir = dir_input.get()                               #read the dictory in the input box
+    try:
+        os.chdir(rootDir)
+    except OSError:
+        tkinter.messagebox.showerror(title='Error',         #if error, inject an tip window
+            message='Invalid path!')
+    else:
+        confirm=(tkinter.messagebox.askyesno(title='Warning', 
+            message='Delet existing Datafile?'))            #confirm current operation
+        if confirm==True:                                   
+            try:
+                os.remove("data_statistic.txt") 
+            except FileNotFoundError:                       #if file not Found, which means deleted
+                pass
+            tkinter.messagebox.showinfo(title='Message',
+                message='Delete success.')
+        
+
+window.title('Data Collector')
+window.geometry('500x600')
+hint_box = tk.Label(window,                                 #indicate how to use this program
+                text='Please enter target directory in the box below: ',
+                font=('Arial', 12),
+                width=45,
+                height=2,
+                anchor='w')
+
+dir_input = tk.Entry(window,                                #declare an input box
+                show=None,                                  #an entry object can only have one line height
+                width=45,
+                font=('Arial', 12))
+
+output_ctrl = tk.Label(window,                              #indicate how to use this program
+                text='Please select the data you want to output: ',
+                font=('Arial', 12),
+                width=45,
+                height=2,
+                anchor='w')
+
+start_button = tk.Button(window,
+                text='Start !',
+                width=10,
+                height=1,
+                font=('Arial', 12),
+                command=collect)
+
+clear_button = tk.Button(window,
+                text='Del file',
+                width=10,
+                height=1,
+                font=('Arial', 12),
+                command=clear)
+
+hint_box.pack()
+dir_input.pack()
+output_ctrl.pack()
+ave_entry= tk.Entry(window,font=('Arial', 14))
+gap_entry= tk.Entry(window,font=('Arial', 14))
+
+ctrl_aver= tk.Checkbutton(window,text='average' ,variable=var_pri_avera,    onvalue=1, offvalue=0,command=print_selection).pack()
+ave_entry.pack()
+ctrl_gap = tk.Checkbutton(window,text='gap step',variable=var_pri_gap,      onvalue=1, offvalue=0,command=print_selection).pack()
+gap_entry.pack()
+ctrl_dir = tk.Checkbutton(window,text='dir',    variable=var_pri_dir,       onvalue=1, offvalue=0,command=print_selection).pack()
+ctrl_step= tk.Checkbutton(window,text='step',   variable=var_pri_steps,     onvalue=1, offvalue=0,command=print_selection).pack()
+ctrl_time= tk.Checkbutton(window,text='time',   variable=var_pri_time,      onvalue=1, offvalue=0,command=print_selection).pack()
+ctrl_Fx  = tk.Checkbutton(window,text='Fx',     variable=var_pri_Fx,        onvalue=1, offvalue=0,command=print_selection).pack()
+ctrl_Fy  = tk.Checkbutton(window,text='Fy',     variable=var_pri_Fy,        onvalue=1, offvalue=0,command=print_selection).pack()
+ctrl_Fz  = tk.Checkbutton(window,text='Fz',     variable=var_pri_Fz,        onvalue=1, offvalue=0,command=print_selection).pack()
+ctrl_Mx  = tk.Checkbutton(window,text='Mx',     variable=var_pri_Mx,        onvalue=1, offvalue=0,command=print_selection).pack()
+ctrl_My  = tk.Checkbutton(window,text='My',     variable=var_pri_My,        onvalue=1, offvalue=0,command=print_selection).pack()
+ctrl_Mz  = tk.Checkbutton(window,text='Mz',     variable=var_pri_Mz,        onvalue=1, offvalue=0,command=print_selection).pack()
+ctrl_LC  = tk.Checkbutton(window,text='LiftCoe',variable=var_pri_LiftCoe,   onvalue=1, offvalue=0,command=print_selection).pack()
+ctrl_DC  = tk.Checkbutton(window,text='DragCoe',variable=var_pri_DragCoe,   onvalue=1, offvalue=0,command=print_selection).pack()
+ctrl_LDR = tk.Checkbutton(window,text='L-G Coe',variable=var_pri_LD_ratio,  onvalue=1, offvalue=0,command=print_selection).pack()
+start_button.pack()
+clear_button.pack()
+
+
+window.mainloop()                       #使窗口循环，以执行命令

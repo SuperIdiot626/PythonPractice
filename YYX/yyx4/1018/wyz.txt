@@ -1,0 +1,12 @@
+H1-origin_kwsst_Ausm_O1_H31000P1031.26T227.50M7.00a5.0b0.0Ti0.00Tv5.0Tf0.000U0_force.log-->V13                	5.0	0.19982031	
+BXXH-B18-H1-0du-dz0_kwsst_Ausm_O1_H31000P1031.26T227.50M7.00a5.0b0.0Ti0.00Tv5.0Tf0.000U0_force.log-->V13      	5.0	0.20713101	
+H1-origin_kwsst_Ausm_O1_H31000P1031.26T227.50M7.00a5.0b0.0Ti0.00Tv5.0Tf0.000U0_force.log-->V13                	5.0	0.46756792	
+BXXH-B18-H1-0du-dz0_kwsst_Ausm_O1_H31000P1031.26T227.50M7.00a5.0b0.0Ti0.00Tv5.0Tf0.000U0_force.log-->V13      	5.0	0.47053282	
+H1-origin_kwsst_Ausm_O1_H31000P1031.26T227.50M7.00a5.0b0.0Ti0.00Tv5.0Tf0.000U0_force.log-->V13                	5.0	-1.3633473	
+BXXH-B18-H1-0du-dz0_kwsst_Ausm_O1_H31000P1031.26T227.50M7.00a5.0b0.0Ti0.00Tv5.0Tf0.000U0_force.log-->V13      	5.0	-1.5069141	
+H1-origin_kwsst_Ausm_O1_H31000P1031.26T227.50M7.00a5.0b0.0Ti0.00Tv5.0Tf0.000U0_force.log-->V13                	5.0	0.54133087	
+BXXH-B18-H1-0du-dz0_kwsst_Ausm_O1_H31000P1031.26T227.50M7.00a5.0b0.0Ti0.00Tv5.0Tf0.000U0_force.log-->V13      	5.0	0.57696775	
+H1-origin_kwsst_Ausm_O1_H31000P1031.26T227.50M7.00a5.0b0.0Ti0.00Tv5.0Tf0.000U0_force.log-->V13                	5.0	-0.91899806	
+BXXH-B18-H1-0du-dz0_kwsst_Ausm_O1_H31000P1031.26T227.50M7.00a5.0b0.0Ti0.00Tv5.0Tf0.000U0_force.log-->V13      	5.0	-1.0860611	
+H1-origin_kwsst_Ausm_O1_H31000P1031.26T227.50M7.00a5.0b0.0Ti0.00Tv5.0Tf0.000U0_force.log-->V13                	5.0	0.29000284	
+BXXH-B18-H1-0du-dz0_kwsst_Ausm_O1_H31000P1031.26T227.50M7.00a5.0b0.0Ti0.00Tv5.0Tf0.000U0_force.log-->V13      	5.0	0.2533403	

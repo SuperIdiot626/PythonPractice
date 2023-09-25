@@ -1,0 +1,17 @@
+# Generated with SMOP  0.41
+from libsmop import *
+# iceHeightDistributionNoChinese.m
+
+    clc
+    clear
+    format('long')
+    iceheight=load('iceHeight(n=15).dat')
+# iceHeightDistributionNoChinese.m:3
+    averageHeight=mean(iceheight)
+# iceHeightDistributionNoChinese.m:4
+    variance=var(iceheight)
+# iceHeightDistributionNoChinese.m:5
+    f,xi=ksdensity(iceheight,nargout=2)
+# iceHeightDistributionNoChinese.m:7
+    plot(xi,f)
+    title('n=15')

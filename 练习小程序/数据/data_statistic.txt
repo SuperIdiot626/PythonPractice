@@ -1,0 +1,30 @@
+D:\Code\Python\练习小程序\数据\minfo1_e1
+    latest steps          500      3.2021061e-001   
+D:\Code\Python\练习小程序\数据\minfo1_e2
+    latest steps          500      3.2021061e-002   
+D:\Code\Python\练习小程序\数据\minfo1_e3
+    latest steps          500      3.2021061e-003   
+D:\Code\Python\练习小程序\数据\minfo1_e4
+    latest steps          500      3.2021061e-004   
+D:\Code\Python\练习小程序\数据\minfo1_e5
+    latest steps          500      3.2021061e-005   
+D:\Code\Python\练习小程序\数据\minfo1_e6
+    latest steps          500      3.2021061e-006   
+D:\Code\Python\练习小程序\数据\minfo1_e7
+    latest steps          500      3.2021061e-007   
+D:\Code\Python\练习小程序\数据\minfo1_e8
+    latest steps          500      3.2021061e-008   
+D:\Code\Python\练习小程序\数据\01-110\minfo1_e1
+    latest steps          100000      1.0302366e-003   
+D:\Code\Python\练习小程序\数据\01-110\01-1111111\minfo1_e1
+    latest steps          100000      1.0000000e+003   
+D:\Code\Python\练习小程序\数据\01-110\01-1111111\asd\minfo1_e1
+    latest steps          100000      1.0000000e+003   
+D:\Code\Python\练习小程序\数据\02-120456\minfo1_e1
+    latest steps          100000      0.0000000e+000   
+D:\Code\Python\练习小程序\数据\03-130\minfo1_e1
+    latest steps          100000      1.0302366e-003   
+D:\Code\Python\练习小程序\数据\04-140\minfo1_e1
+    latest steps          100000      1.0302366e-003   
+D:\Code\Python\练习小程序\数据\05-15123\minfo1_e1
+    latest steps          100000      1.0302366e-003   

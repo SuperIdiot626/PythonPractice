@@ -1,0 +1,16 @@
+h1{
+    text-align: center;
+    color: aqua;
+}
+
+p{
+    padding: 20px;
+    background: aqua;
+}
+
+sb{
+    text-align: right;                    /*？？*/ 
+    color: black;                       /*文字颜色*/
+    background: rgb(10, 206, 69);       /*背景颜色*/
+    padding: 20mm;                        /*不知道*/       
+}
